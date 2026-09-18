@@ -1,6 +1,6 @@
 # gztr-docker-demo
 
-**This setup is NOT intended for production usage.** Rather it is for demonstrative purposes so that you can try ckanext-gztr on your local device.
+> **This setup is NOT intended for production usage.** Rather it is for demonstrative purposes so that you can try ckanext-gztr on your local device.
 
 This is a demo repository for trying out the [ckanext-gztr](https://gztr.dathere.com) CKAN extension on your local device.
 
