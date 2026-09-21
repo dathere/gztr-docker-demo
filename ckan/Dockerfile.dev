@@ -8,6 +8,9 @@ RUN pip3 install git+https://github.com/dathere/ckanext-gztr.git@main#egg=ckanex
 
 RUN pip3 install -U bleach sqlparse
 
+# As per https://github.com/ckan/ckan-docker/issues/257
+RUN chown -R ckan:ckan-sys ${APP_DIR}/src
+
 USER ckan
 
 # Clone the extension(s) your are writing for your own project in the `src` folder

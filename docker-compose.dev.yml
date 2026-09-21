@@ -23,6 +23,9 @@ services:
       - solr
       - redis
     ports:
+      # Map the container's port 5000 to a random available port on the host
+      # - "5000"
+      # For serial or manual tests, map the container's port 5000 to host port 5000
       - "0.0.0.0:${CKAN_PORT_HOST}:5000"
     volumes:
       - ckan_storage:/var/lib/ckan
@@ -32,21 +35,23 @@ services:
       - local_bin:/usr/local/bin
       - home_dir:/srv/app/
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "wget", "-qO", "/dev/null", "http://localhost:5000"]
-      interval: 60s
-      timeout: 10s
-      retries: 3
-
+    depends_on:
+      db:
+        condition: service_healthy
+      solr:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
   # datapusher:
   #   platform: linux/amd64
   #   image: ckan/ckan-base-datapusher:${DATAPUSHER_VERSION}
   #   restart: unless-stopped
-  #   healthcheck:
-  #     test: ["CMD", "wget", "-qO", "/dev/null", "http://localhost:8800"]
-  #     interval: 60s
-  #     timeout: 10s
-  #     retries: 3
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://ckan-dev:5000/api/3/action/status_show"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   db:
     build:
