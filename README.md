@@ -24,6 +24,12 @@ cp .env.example .env
 nano .env # or use a code editor
 ```
 
+2.1: There is [currently a `KeyError` issue](https://github.com/ckan/ckan/issues/9552) when running the CKAN container. Add the following line after the `USER ckan` line in the `ckan/Dockerfile.dev` file to avoid the error:
+
+```bash
+RUN sed -i 's/storages_grouped_by_privacy\[storage.settings.type\]\[storage.settings.public\].add(path)/storages_grouped_by_privacy\[storage.settings.type\]\[True\].add(path)/g' /srv/app/src/ckan/ckan/lib/files/__init__.py
+```
+
 3. Run your local CKAN instance with Docker Compose.
 
 ```bash
@@ -35,6 +41,6 @@ docker compose -f docker-compose.dev.yml up
 
 5. Follow the relevant installation instructions at [gztr.dathere.com/docs/install](https://gztr.dathere.com/docs/install) for setting up any other necessary configuration such as your STAC catalog and collection files along with GeoParquet data as demonstrated in the Geospatial data section at [gztr.dathere.com/docs/geospatial-data](https://gztr.dathere.com/docs/geospatial-data) where there are notebooks you can view in your browser to learn from.
 
-Hopefully in the future we can add example GeoParquet files that automatically get added to your demo CKAN instance to explore.
+Hopefully in the future we can add more example GeoParquet files that automatically get added to your demo CKAN instance to explore.
 
 If you run into any errors or issues with this setup please [file an issue](https://github.com/dathere/gztr-docker-demo/issues).

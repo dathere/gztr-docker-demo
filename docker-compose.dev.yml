@@ -34,6 +34,9 @@ services:
       - site_packages:/usr/local/lib/python3.10/site-packages
       - local_bin:/usr/local/bin
       - home_dir:/srv/app/
+      - ./gztr-storage:/var/lib/ckan/storage/uploads/gztr
+      # Comment the above and uncomment the below when using test storage
+      # - ./gztr-test-storage:/var/lib/ckan/storage/uploads/gztr
     restart: unless-stopped
     depends_on:
       db:
@@ -71,7 +74,7 @@ services:
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}"]
-     
+
   solr:
     platform: linux/amd64
     image: ckan/ckan-solr:${SOLR_IMAGE_VERSION}

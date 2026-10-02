@@ -1,0 +1,30 @@
+{
+  "id": "demo",
+  "stac_version": "1.1.0",
+  "type": "Catalog",
+  "title": "Demo STAC API",
+  "description": "Geospatial collections used for dataset publishing and search on the demo CKAN instance.",
+  "links": [
+    {
+      "href": "http://localhost:5000/gztr/stac",
+      "rel": "self",
+      "type": "application/json"
+    },
+    {
+      "href": "http://localhost:5000/gztr/stac",
+      "rel": "root",
+      "type": "application/json"
+    },
+    {
+      "href": "http://localhost:5000/gztr/stac/collections",
+      "rel": "collections",
+      "type": "application/json"
+    },
+    {
+      "href": "http://localhost:5000/gztr/stac/collections/nm_state",
+      "rel": "child",
+      "type": "application/json",
+      "title": "New Mexico"
+    }
+  ]
+}
